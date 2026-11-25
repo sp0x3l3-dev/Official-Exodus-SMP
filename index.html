@@ -408,10 +408,10 @@ footer a.replay{text-decoration:underline;cursor:pointer;margin-left:6px}
       <h2>The 4 Protags</h2>
       <p class="lede">Follow the channels of the four protagonists.</p>
       <div class="grid4">
-        <article class="card pc" data-skin="_sp0x3l_"><div class="stage" aria-hidden="true"></div><h3>SP0X3L</h3><p class="ign">_sp0x3l_</p><span class="hint">Click to jump</span><a class="btn ghost sm" href="https://www.youtube.com/@SP0X3Lmc" target="_blank" rel="noopener">Watch on YouTube</a></article>
+        <article class="card pc" data-skin="_sp0x3l_" data-slim="1"><div class="stage" aria-hidden="true"></div><h3>SP0X3L</h3><p class="ign">_sp0x3l_</p><span class="hint">Click to jump</span><a class="btn ghost sm" href="https://www.youtube.com/@SP0X3Lmc" target="_blank" rel="noopener">Watch on YouTube</a></article>
         <article class="card pc" data-skin="VidavAFK"><div class="stage" aria-hidden="true"></div><h3>Vidav</h3><p class="ign">VidavAFK</p><span class="hint">Click to jump</span><a class="btn ghost sm" href="https://www.youtube.com/@VidavAFK" target="_blank" rel="noopener">Watch on YouTube</a></article>
         <article class="card pc" data-skin="JustJan061212"><div class="stage" aria-hidden="true"></div><h3>JustJan</h3><p class="ign">JustJan061212</p><span class="hint">Click to jump</span><a class="btn ghost sm" href="https://www.youtube.com/@JustJanmc" target="_blank" rel="noopener">Watch on YouTube</a></article>
-        <article class="card pc" data-skin="Katzyka"><div class="stage" aria-hidden="true"></div><h3>Katzyka</h3><p class="ign">Katzyka</p><span class="hint">Click to jump</span><a class="btn ghost sm" href="https://www.youtube.com/@KatzykaMC" target="_blank" rel="noopener">Watch on YouTube</a></article>
+        <article class="card pc" data-skin="Katzyka" data-slim="1"><div class="stage" aria-hidden="true"></div><h3>Katzyka</h3><p class="ign">Katzyka</p><span class="hint">Click to jump</span><a class="btn ghost sm" href="https://www.youtube.com/@KatzykaMC" target="_blank" rel="noopener">Watch on YouTube</a></article>
       </div>
     </div>
   </section>
@@ -457,7 +457,7 @@ document.querySelectorAll('[data-copy]').forEach(function(el){
 
 <script>
 (function(){
-var S=7,SRC=['https://minotar.net/skin/','https://crafatar.com/skins/','https://mc-heads.net/skin/'];
+var S=7,SRC=['https://crafatar.com/skins/','https://minotar.net/skin/','https://mc-heads.net/skin/'];
 var PARTS=[
  {n:'head',w:8,h:8,d:8,u:0,v:0,x:4,y:0,ov:[32,0],all:1,piv:'50% 100%'},
  {n:'body',w:8,h:12,d:4,u:16,v:16,x:4,y:8,ov:[16,32]},
@@ -503,11 +503,11 @@ function build(stage,url,nw,nh,slim){
   stage.appendChild(fig);
   return {fig:fig,parts:parts,stage:stage,cx:0,cy:0,tx:0,ty:0};
 }
-function load(i,name,cb,cors){
-  var im=new Image();if(cors!==false)im.crossOrigin='anonymous';
-  im.onload=function(){cb(im.src,im.naturalWidth,im.naturalHeight,im,cors!==false)};
-  im.onerror=function(){if(cors!==false)load(i,name,cb,false);else i+1<SRC.length?load(i+1,name,cb):cb(null)};
-  im.src=SRC[i]+encodeURIComponent(name);
+function load(i,name,cb){
+  var n=SRC.length,cors=i<n,im=new Image();if(cors)im.crossOrigin='anonymous';
+  im.onload=function(){cb(im.src,im.naturalWidth,im.naturalHeight,im,cors)};
+  im.onerror=function(){i+1<2*n?load(i+1,name,cb):cb(null)};
+  im.src=SRC[i%n]+encodeURIComponent(name);
 }
 function isSlim(im,w,h,ok){
   if(!ok||w!==h)return false;
@@ -520,7 +520,7 @@ document.querySelectorAll('.pc').forEach(function(card){
   var stage=card.querySelector('.stage');
   load(0,card.getAttribute('data-skin'),function(url,w,h,im,ok){
     if(!url){stage.innerHTML='<span class="miss">Skin could not load</span>';return}
-    var o=build(stage,url,w,h,isSlim(im,w,h,ok));o.card=card;o.on=false;figs.push(o);card.addEventListener('click',function(e){if(e.target.closest('a'))return;if(o.j===undefined){o.j=performance.now();for(var q=0;q<10;q++){var dd=document.createElement('i');dd.className='dust';dd.style.setProperty('--dx',((Math.random()-.5)*110)+'px');dd.style.setProperty('--dy',(-Math.random()*26)+'px');dd.style.marginLeft=((Math.random()-.5)*50)+'px';stage.appendChild(dd);setTimeout(function(n){n.remove()},750,dd)}}});
+    var o=build(stage,url,w,h,w===h&&(ok?isSlim(im,w,h,ok):card.getAttribute('data-slim')==='1'));o.card=card;o.on=false;figs.push(o);card.addEventListener('click',function(e){if(e.target.closest('a'))return;if(o.j===undefined){o.j=performance.now();for(var q=0;q<10;q++){var dd=document.createElement('i');dd.className='dust';dd.style.setProperty('--dx',((Math.random()-.5)*110)+'px');dd.style.setProperty('--dy',(-Math.random()*26)+'px');dd.style.marginLeft=((Math.random()-.5)*50)+'px';stage.appendChild(dd);setTimeout(function(n){n.remove()},750,dd)}}});
   });
 });
 addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;figs.forEach(function(f){f.on=f.card.contains(e.target)})},{passive:true});

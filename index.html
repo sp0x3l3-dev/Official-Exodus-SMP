@@ -210,11 +210,10 @@ html{background:#07050a}
 
 /* trailer */
 .theater{position:relative;z-index:1}
-.dim{position:fixed;inset:0;z-index:14;background:rgba(2,1,4,.88);opacity:0;pointer-events:none;transition:opacity 1s}
-body.cinema .dim{opacity:1}
-.cine{position:relative;z-index:16;width:100%}
+
+
 .cine .amb{position:absolute;left:-6%;top:-10%;width:112%;height:120%;filter:blur(70px) saturate(1.6);opacity:.55;z-index:0;pointer-events:none;transition:opacity 1s}
-body.cinema .cine .amb{opacity:.9}
+
 .screen{position:relative;z-index:1;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#050308;border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 120px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,45,63,.15);isolation:isolate;cursor:pointer}
 .screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.05) saturate(1.08)}
 .screen:fullscreen{border-radius:0;border:0;aspect-ratio:auto;width:100vw;height:100vh}
@@ -312,7 +311,7 @@ footer a.replay{text-decoration:underline;cursor:pointer;margin-left:6px}
 <button class="skip" id="cskip">Skip &#8250;</button><div class="prog" id="cprog"></div>
 </div>
 <script>(function(){var seen=0;try{seen=localStorage.getItem('exodusSeen')}catch(e){}var c=document.getElementById('cut');if(seen&&c){c.remove()}else{document.documentElement.classList.add('lock')}})();</script>
-<div class="intro" aria-hidden="true"><b>EXODUS</b></div><div class="flash" id="flash"></div><div class="dim" id="dim"></div><div class="sitebg" id="sitebg"></div><div class="spot"></div><div class="bar" id="bar"></div>
+<div class="intro" aria-hidden="true"><b>EXODUS</b></div><div class="flash" id="flash"></div><div class="sitebg" id="sitebg"></div><div class="spot"></div><div class="bar" id="bar"></div>
 
 <header class="nav">
   <div class="wrap">

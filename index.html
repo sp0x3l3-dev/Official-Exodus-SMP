@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Exodus SMP</title>
 <meta name="description" content="Exodus SMP: over 100 factions, one quiet world, and a spawn that is about to fall. IP: exodusevents.folium.lol">
-<link rel="icon" href="assets/favicon.png">
+<link rel="icon" href="assets/favicon.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -146,7 +146,7 @@ footer{padding:36px 0 50px;color:var(--muted);font-size:14px;text-align:center;b
   <div class="hero">
     <div class="wrap">
       <span class="pill"><i></i>Over 100 factions · exodusevents.folium.lol</span>
-      <div class="logo3d" id="logo3d" role="img" aria-label="Exodus SMP logo"><noscript><img src="assets/logo.png" alt="Exodus SMP logo" style="width:100%"></noscript><div class="l3"></div></div>
+      <div class="logo3d" id="logo3d" role="img" aria-label="Exodus SMP logo"><div class="l3"><img class="front" src="assets/logo.png?v=3" alt="Exodus SMP logo"></div></div>
       <h1>Everything is quiet. <span>But is it?</span></h1>
       <p class="sub">Fresh players begin their lives on Exodus. Everyone is hiding from the faction, and the rise is coming for spawn.</p>
       <div class="cta">
@@ -315,19 +315,20 @@ document.querySelectorAll('.pc').forEach(function(card){
   var stage=card.querySelector('.stage');
   load(0,card.getAttribute('data-skin'),function(url,w,h){
     if(!url){stage.innerHTML='<span class="miss">Skin could not load</span>';return}
-    figs.push(build(stage,url,w,h));
+    var o=build(stage,url,w,h);o.card=card;o.on=false;figs.push(o);
   });
 });
-addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY},{passive:true});
+addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;figs.forEach(function(f){f.on=f.card.contains(e.target)})},{passive:true});
+document.documentElement.addEventListener('pointerleave',function(){figs.forEach(function(f){f.on=false})});
 function clamp(v){return Math.max(-1,Math.min(1,v))}
 function tick(t){
   figs.forEach(function(f,i){
-    var r=f.stage.getBoundingClientRect(),x,y;
-    if(mx===null||reduce){x=reduce?0:Math.sin(t/1400+i)*.5;y=reduce?0:Math.sin(t/1900+i)*.15}
-    else{x=clamp((mx-(r.left+r.width/2))/(innerWidth*.45));y=clamp((my-(r.top+r.height*.25))/(innerHeight*.45))}
+    var r=f.card.getBoundingClientRect(),sr=f.stage.getBoundingClientRect(),x,y;
+    if(f.on&&!reduce){x=clamp((mx-(sr.left+sr.width/2))/(r.width*.6));y=clamp((my-(sr.top+sr.height*.25))/(r.height*.9))}
+    else{x=reduce?0:Math.sin(t/1400+i)*.35;y=reduce?0:Math.sin(t/1900+i)*.1}
     f.cx+=(x-f.cx)*.12;f.cy+=(y-f.cy)*.12;
     f.fig.style.transform='rotateY('+f.cx*24+'deg)';
-    f.parts.head.style.transform='rotateY('+f.cx*42+'deg) rotateX('+(f.cy*28)+'deg)';
+    f.parts.head.style.transform='rotateY('+f.cx*42+'deg) rotateX('+(-f.cy*28)+'deg)';
     var sw=Math.sin(t/900+i)*3;
     f.parts.ra.style.transform='rotateX('+sw+'deg)';
     f.parts.la.style.transform='rotateX('+(-sw)+'deg)';
@@ -341,13 +342,14 @@ requestAnimationFrame(tick);
 <script>
 (function(){
 var box=document.getElementById('logo3d');if(!box)return;
-var l3=box.querySelector('.l3'),N=24,STEP=1.7,D=N*STEP/2;
-for(var i=N;i>=0;i--){
+var l3=box.querySelector('.l3'),front=l3.querySelector('.front'),N=24,STEP=1.7,D=N*STEP/2;
+front.style.transform='translateZ('+D+'px)';
+for(var i=N;i>=1;i--){
   var im=new Image();im.alt='';im.draggable=false;
-  im.src=i===0?'assets/logo.png':'assets/logo-depth.png';
-  if(i===0)im.className='front';
+  im.onerror=function(){if(this.parentNode)this.parentNode.removeChild(this)};
+  im.src='assets/logo-depth.png?v=3';
   im.style.transform='translateZ('+(D-i*STEP)+'px)';
-  l3.appendChild(im);
+  l3.insertBefore(im,front);
 }
 var mx=null,my=null,cx=0,cy=0,reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 addEventListener('pointermove',function(e){mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1},{passive:true});

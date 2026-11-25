@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exodus SMP</title>
+<meta name="description" content="Exodus SMP: over 100 factions, one quiet world, and a spawn that is about to fall. IP: exodusevents.folium.lol">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09070a;--card:#140c10;--line:rgba(255,255,255,.09);--red:#ff2d3f;--red2:#ff7a45;--text:#f5eeee;--muted:#a99da1;--discord:#5865f2}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:17px;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+.wrap{width:min(1120px,92%);margin:0 auto}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(9,7,10,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.01em}
+.logo img{height:30px;width:auto}
+.links{display:flex;align-items:center;gap:28px;font-weight:500;font-size:15px;color:var(--muted)}
+.links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:16px;border:1px solid transparent;cursor:pointer;font-family:inherit;color:#fff;transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn.red{background:linear-gradient(135deg,var(--red),var(--red2))}
+.btn.ghost{background:rgba(255,255,255,.06);border-color:var(--line)}
+.btn.discord{background:var(--discord)}
+.btn.sm{padding:9px 18px;font-size:15px}
+
+/* hero */
+.hero{position:relative;padding:170px 0 90px;text-align:center;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:url(assets/tower-town.jpg) center 30%/cover;opacity:.35}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 0%,rgba(255,45,63,.25),transparent 60%),linear-gradient(180deg,rgba(9,7,10,.4),var(--bg))}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05);font-size:14px;font-weight:600;color:var(--muted)}
+.pill i{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 10px #3ddc84}
+.hero-logo{display:block;margin:26px auto 4px;width:min(260px,55%);height:auto;filter:drop-shadow(0 0 30px rgba(255,45,63,.55))}
+h1{font-size:clamp(40px,7vw,84px);font-weight:900;line-height:1.02;letter-spacing:-.035em;margin:12px auto 20px;max-width:15ch}
+h1 span{background:linear-gradient(135deg,var(--red),var(--red2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{max-width:620px;margin:0 auto 32px;color:var(--muted);font-size:20px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.stats{display:flex;justify-content:center;gap:clamp(24px,6vw,70px);margin-top:56px;flex-wrap:wrap}
+.stats b{display:block;font-size:40px;font-weight:900;letter-spacing:-.02em}
+.stats span{color:var(--muted);font-size:15px;font-weight:500}
+
+/* sections */
+section{padding:90px 0}
+.eyebrow{color:var(--red2);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+h2{font-size:clamp(30px,4.5vw,50px);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+.lede{color:var(--muted);max-width:60ch;margin-bottom:40px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+
+/* strip */
+.strip{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.track{display:flex;gap:18px;width:max-content;animation:slide 45s linear infinite}
+.strip:hover .track{animation-play-state:paused}
+.track button{border:1px solid var(--line);background:#000;border-radius:16px;overflow:hidden;cursor:zoom-in;padding:0;flex:none;transition:transform .2s,border-color .2s}
+.track button:hover{transform:translateY(-4px);border-color:var(--red)}
+.track img{display:block;height:300px;width:auto}
+@keyframes slide{to{transform:translateX(-50%)}}
+.zoom{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.zoom.open{display:flex}
+.zoom img{max-width:100%;max-height:100%;border-radius:12px}
+
+/* steps and cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px}
+.card h3{font-size:22px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+.card p{color:var(--muted)}
+.num{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--red2));font-weight:800;margin-bottom:18px}
+.card.big{padding:40px}
+.card.big .tag{display:inline-block;color:var(--red2);font-weight:700;font-size:14px;margin-bottom:10px}
+.card.big h3{font-size:30px}
+.card ul{list-style:none;margin-top:18px;display:grid;gap:8px;color:var(--text)}
+.card li::before{content:"✓";color:var(--red2);font-weight:800;margin-right:10px}
+.lore{max-width:70ch}
+.lore p{margin-bottom:16px;font-size:19px;color:#e2d8da}
+.lore .hush{color:var(--red2);font-weight:700}
+.creator{display:flex;flex-direction:column;gap:4px;transition:transform .15s,border-color .15s}
+.creator:hover{transform:translateY(-3px);border-color:var(--red)}
+.creator .go{color:var(--red2);font-weight:700;margin-top:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+
+
+/* protag 3D skins */
+.pc{text-align:center;padding:18px 18px 24px;overflow:hidden;position:relative;transition:transform .15s,border-color .15s}
+.pc:hover{border-color:var(--red)}
+.pc::before{content:"";position:absolute;left:50%;top:38%;width:240px;height:240px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,45,63,.28),transparent 68%);pointer-events:none}
+.stage{position:relative;height:270px;perspective:900px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.stage::after{content:"";position:absolute;bottom:6px;left:50%;width:130px;height:16px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(0,0,0,.65),transparent 70%)}
+.stage .miss{color:var(--muted);font-size:14px}
+.fig{position:relative;transform-style:preserve-3d}
+.part{position:absolute;transform-style:preserve-3d}
+.bx{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.bx i{position:absolute;image-rendering:pixelated;backface-visibility:hidden}
+.pc h3{font-size:24px;font-weight:800;margin-bottom:2px}
+.pc .ign{color:var(--muted);font-size:15px;margin-bottom:14px;word-break:break-all}
+
+/* contact */
+.contact{text-align:center;background:radial-gradient(ellipse at 50% 100%,rgba(255,45,63,.22),transparent 65%),var(--card);border:1px solid var(--line);border-radius:28px;padding:70px 24px}
+.contact .lede{margin:0 auto 30px}
+.ipbtn{margin:26px auto 0;display:inline-block;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:12px 24px;font-size:20px;font-weight:700;cursor:pointer;color:var(--text);font-family:inherit}
+.ipbtn small{color:var(--red2);font-size:13px;margin-left:10px;font-weight:700}
+footer{padding:36px 0 50px;color:var(--muted);font-size:14px;text-align:center;border-top:1px solid var(--line)}
+
+@media (max-width:860px){
+  .links a:not(.btn){display:none}
+  .grid3,.grid2,.grid4{grid-template-columns:1fr 1fr}
+  .track img{height:220px}
+  section{padding:64px 0}
+}
+@media (max-width:560px){.grid3,.grid2,.grid4{grid-template-columns:1fr}.hero{padding-top:130px}}
+@media (prefers-reduced-motion:reduce){.track{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><img src="assets/logo.png" alt="">Exodus SMP</a>
+    <nav class="links" aria-label="Main">
+      <a href="#lore">Lore</a>
+      <a href="#builds">Builds</a>
+      <a href="#join">How to join</a>
+      <a href="#protags">Protags</a>
+      <a class="btn red sm" href="#contact">Join now</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <span class="pill"><i></i>Over 100 factions · exodusevents.folium.lol</span>
+      <img class="hero-logo" src="assets/logo.png" alt="Exodus SMP logo">
+      <h1>Everything is quiet. <span>But is it?</span></h1>
+      <p class="sub">Fresh players begin their lives on Exodus. Everyone is hiding from the faction, and the rise is coming for spawn.</p>
+      <div class="cta">
+        <button class="btn red" data-copy="exodusevents.folium.lol">Copy server IP</button>
+        <a class="btn discord" href="https://discord.gg/Qp7pewBuNc" target="_blank" rel="noopener">Join the Discord</a>
+      </div>
+      <div class="stats">
+        <div><b>100+</b><span>Factions</span></div>
+        <div><b>4</b><span>Protags</span></div>
+        <div><b>1</b><span>Rise</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="lore">
+    <div class="wrap">
+      <div class="eyebrow">The story</div>
+      <h2>The Lore</h2>
+      <div class="lore">
+        <p><strong>Exodus SMP is an SMP where fresh players begin their lives on Exodus.</strong></p>
+        <p>At first glance… everything is quiet.</p>
+        <p class="hush">But is it actually quiet?</p>
+        <p>It’s quiet because everyone is hiding from the faction. Overall there are over 100 factions, and they keep killing innocent players. There is always a faction defending the innocent, but it gets overwhelmed by the bad faction that keeps killing.</p>
+        <p>Only the strong faction owns the netherite… because of Exodus SMP.</p>
+        <p>The spawn gets destroyed as the rise begins.</p>
+      </div>
+      <div class="grid2" style="margin-top:34px">
+        <div class="card big"><span class="tag">Fresh players</span><h3>Begin on Exodus</h3><p>Everyone is hiding from the faction, and innocent players keep getting killed.</p><ul><li>Start with nothing</li><li>Find a faction to defend you</li></ul></div>
+        <div class="card big"><span class="tag">Factions</span><h3>Own the land</h3><p>Territory includes caves, trial chambers and everything below it.</p><ul><li>Over 100 factions</li><li>Only the strongest owns netherite</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="builds" style="padding-top:20px">
+    <div class="wrap head"><div><div class="eyebrow">The world</div><h2>Builds</h2></div></div>
+    <p class="wrap lede">Hover to pause the strip. Click any build to zoom in.</p>
+    <div class="strip"><div class="track" id="track">
+      <button type="button"><img src="assets/tower-town.jpg" alt="A glowing golden tower above a snowy town"></button>
+      <button type="button"><img src="assets/cottage.jpg" alt="A dark wooden cottage at night"></button>
+      <button type="button"><img src="assets/castle.jpg" alt="A stone castle gate at night"></button>
+    </div></div>
+  </section>
+
+  <section id="join" style="padding-top:30px">
+    <div class="wrap">
+      <div class="eyebrow">Get started</div>
+      <h2>Join in three steps.</h2>
+      <p class="lede">The server IP is <strong>exodusevents.folium.lol</strong>.</p>
+      <div class="grid3">
+        <div class="card"><div class="num">1</div><h3>Add the IP</h3><p>Open Minecraft, go to Multiplayer and add exodusevents.folium.lol.</p></div>
+        <div class="card"><div class="num">2</div><h3>Join the Discord</h3><p>Hop into the community to find a faction and stay updated.</p></div>
+        <div class="card"><div class="num">3</div><h3>Survive</h3><p>Pick a side before the rise begins and spawn falls.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="protags">
+    <div class="wrap">
+      <div class="eyebrow">Watch</div>
+      <h2>The 4 Protags</h2>
+      <p class="lede">Follow the channels of the four protagonists.</p>
+      <div class="grid4">
+        <article class="card pc" data-skin="_sp0x3l_"><div class="stage" aria-hidden="true"></div><h3>SP0X3L</h3><p class="ign">_sp0x3l_</p><a class="btn ghost sm" href="https://www.youtube.com/@SP0X3Lmc" target="_blank" rel="noopener">Watch on YouTube</a></article>
+        <article class="card pc" data-skin="VidavAFK"><div class="stage" aria-hidden="true"></div><h3>Vidav</h3><p class="ign">VidavAFK</p><a class="btn ghost sm" href="https://www.youtube.com/@VidavAFK" target="_blank" rel="noopener">Watch on YouTube</a></article>
+        <article class="card pc" data-skin="JustJan061212"><div class="stage" aria-hidden="true"></div><h3>JustJan</h3><p class="ign">JustJan061212</p><a class="btn ghost sm" href="https://www.youtube.com/@JustJanmc" target="_blank" rel="noopener">Watch on YouTube</a></article>
+        <article class="card pc" data-skin="Katzyka"><div class="stage" aria-hidden="true"></div><h3>Katzyka</h3><p class="ign">Katzyka</p><a class="btn ghost sm" href="https://www.youtube.com/@KatzykaMC" target="_blank" rel="noopener">Watch on YouTube</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top:20px">
+    <div class="wrap">
+      <div class="contact">
+        <div class="eyebrow">Ready?</div>
+        <h2>Survive the rise.</h2>
+        <p class="lede">Join the Discord, grab the IP and find your faction.</p>
+        <div class="cta">
+          <a class="btn discord" href="https://discord.gg/Qp7pewBuNc" target="_blank" rel="noopener">Join the Discord</a>
+          <a class="btn ghost" href="#protags">Watch the Protags</a>
+        </div>
+        <button class="ipbtn" data-copy="exodusevents.folium.lol">exodusevents.folium.lol<small>Copy</small></button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 Exodus SMP. Not affiliated with Mojang or Microsoft.</div></footer>
+
+<div class="zoom" id="zoom" role="dialog" aria-label="Image viewer"><img alt=""></div>
+
+<script>
+var track=document.getElementById('track');
+track.innerHTML+=track.innerHTML;
+var zoom=document.getElementById('zoom'),zi=zoom.querySelector('img');
+track.addEventListener('click',function(e){var im=e.target.closest('button');if(!im)return;var s=im.querySelector('img');zi.src=s.src;zi.alt=s.alt;zoom.classList.add('open')});
+zoom.addEventListener('click',function(){zoom.classList.remove('open')});
+addEventListener('keydown',function(e){if(e.key==='Escape')zoom.classList.remove('open')});
+document.querySelectorAll('[data-copy]').forEach(function(el){
+  el.addEventListener('click',function(){
+    var t=el.getAttribute('data-copy'),sm=el.querySelector('small'),orig=el.innerHTML;
+    function done(){
+      if(sm){sm.textContent='Copied';setTimeout(function(){sm.textContent='Copy'},1500)}
+      else{el.textContent='Copied!';setTimeout(function(){el.innerHTML=orig},1500)}
+    }
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){})}
+  });
+});
+</script>
+
+<script>
+(function(){
+var S=7,SRC=['https://minotar.net/skin/','https://crafatar.com/skins/','https://mc-heads.net/skin/'];
+var PARTS=[
+ {n:'head',w:8,h:8,d:8,u:0,v:0,x:4,y:0,ov:[32,0],all:1,piv:'50% 100%'},
+ {n:'body',w:8,h:12,d:4,u:16,v:16,x:4,y:8,ov:[16,32]},
+ {n:'ra',w:4,h:12,d:4,u:40,v:16,x:0,y:8,ov:[40,32],piv:'50% 8%'},
+ {n:'la',w:4,h:12,d:4,u:32,v:48,lu:40,lv:16,x:12,y:8,ov:[48,48],piv:'50% 8%'},
+ {n:'rl',w:4,h:12,d:4,u:0,v:16,x:4,y:20,ov:[0,32],piv:'50% 0%'},
+ {n:'ll',w:4,h:12,d:4,u:16,v:48,lu:0,lv:16,x:8,y:20,ov:[0,48],piv:'50% 0%'}
+];
+function box(w,h,d,u,v,url,th){
+  var el=document.createElement('div');el.className='bx';
+  el.style.width=w*S+'px';el.style.height=h*S+'px';
+  var F={
+    front:[u+d,v+d,w,h,'translateZ('+d*S/2+'px)'],
+    back:[u+2*d+w,v+d,w,h,'rotateY(180deg) translateZ('+d*S/2+'px)'],
+    right:[u,v+d,d,h,'rotateY(-90deg) translateZ('+w*S/2+'px)'],
+    left:[u+d+w,v+d,d,h,'rotateY(90deg) translateZ('+w*S/2+'px)'],
+    top:[u+d,v,w,d,'rotateX(90deg) translateZ('+h*S/2+'px)'],
+    bottom:[u+d+w,v,w,d,'rotateX(-90deg) translateZ('+h*S/2+'px)']
+  };
+  for(var k in F){var f=F[k],i=document.createElement('i');
+    i.style.cssText='width:'+f[2]*S+'px;height:'+f[3]*S+'px;left:'+(w-f[2])*S/2+'px;top:'+(h-f[3])*S/2+'px;'+
+      'background:url("'+url+'") -'+f[0]*S+'px -'+f[1]*S+'px/'+64*S+'px '+th*S+'px;transform:'+f[4];
+    el.appendChild(i);}
+  return el;
+}
+function build(stage,url,nw,nh){
+  var th=64*nh/nw,legacy=th<64,fig=document.createElement('div');fig.className='fig';
+  fig.style.width=16*S+'px';fig.style.height=32*S+'px';
+  var parts={};
+  PARTS.forEach(function(p){
+    var w=p.w,u=p.u,v=p.v;
+    if(legacy&&p.lu!==undefined){u=p.lu;v=p.lv}
+    var el=document.createElement('div');el.className='part';
+    el.style.cssText='left:'+p.x*S+'px;top:'+p.y*S+'px;width:'+w*S+'px;height:'+p.h*S+'px;transform-origin:'+(p.piv||'50% 50%');
+    el.appendChild(box(w,p.h,p.d,u,v,url,th));
+    if(!legacy||p.all){
+      var o=box(w,p.h,p.d,p.ov[0],p.ov[1],url,th);
+      o.style.transform='scale3d('+(w+1)/w+','+(p.h+1)/p.h+','+(p.d+1)/p.d+')';
+      el.appendChild(o);
+    }
+    fig.appendChild(el);parts[p.n]=el;
+  });
+  stage.appendChild(fig);
+  return {fig:fig,parts:parts,stage:stage,cx:0,cy:0,tx:0,ty:0};
+}
+function load(i,name,cb){
+  var im=new Image();
+  im.onload=function(){cb(im.src,im.naturalWidth,im.naturalHeight)};
+  im.onerror=function(){i+1<SRC.length?load(i+1,name,cb):cb(null)};
+  im.src=SRC[i]+encodeURIComponent(name);
+}
+var figs=[],mx=null,my=null,reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.querySelectorAll('.pc').forEach(function(card){
+  var stage=card.querySelector('.stage');
+  load(0,card.getAttribute('data-skin'),function(url,w,h){
+    if(!url){stage.innerHTML='<span class="miss">Skin could not load</span>';return}
+    figs.push(build(stage,url,w,h));
+  });
+});
+addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY},{passive:true});
+function clamp(v){return Math.max(-1,Math.min(1,v))}
+function tick(t){
+  figs.forEach(function(f,i){
+    var r=f.stage.getBoundingClientRect(),x,y;
+    if(mx===null||reduce){x=reduce?0:Math.sin(t/1400+i)*.5;y=reduce?0:Math.sin(t/1900+i)*.15}
+    else{x=clamp((mx-(r.left+r.width/2))/(innerWidth*.45));y=clamp((my-(r.top+r.height*.25))/(innerHeight*.45))}
+    f.cx+=(x-f.cx)*.12;f.cy+=(y-f.cy)*.12;
+    f.fig.style.transform='rotateY('+f.cx*24+'deg)';
+    f.parts.head.style.transform='rotateY('+f.cx*42+'deg) rotateX('+(f.cy*28)+'deg)';
+    var sw=Math.sin(t/900+i)*3;
+    f.parts.ra.style.transform='rotateX('+sw+'deg)';
+    f.parts.la.style.transform='rotateX('+(-sw)+'deg)';
+  });
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
